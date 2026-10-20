@@ -1,57 +1,92 @@
-# [Motion](https://motion.salimi.my) &middot; [![Author Salimi](https://img.shields.io/badge/Author-Salimi-%3C%3E)](https://www.linkedin.com/in/mohamad-salimi/)
+# Noteon
 
-This is a Notion clone app created using Next.js for educational purposes. Motion is a productivity and note-taking web application. It offers organizational tools including task management, project tracking, to-do lists, and bookmarking.
+A modern, self-hosted Notion-like note-taking application built with Next.js 15, React 19, and Turso/libsql.
 
-## Notion Clone
+## Features
 
-- Real time database
-- Light / dark / system mode
-- Authentication using Clerk
-- Convex for database
-- Edgestore for image upload
-- Zustand for state management
-- Notion like editor using BlockNote
-- Hosted in Vercel
+- ✨ Real-time document editing with BlockNote
+- 🌙 Light / dark / system theme support
+- 🔐 Local user authentication with bcrypt password hashing
+- 💾 Self-hosted database with Turso/libsql
+- 🚀 Deploy to Netlify or Cloudflare Pages
+- 📱 Responsive design
+- 🎨 Notion-like editor experience
 
-## Tech/framework used
+## Tech Stack
 
-- Next.js 13 App Dir
-- Shadcn/ui
-- Clerk
-- Tailwind CSS
-- TypeScript
-- Convex
-- Edgestore
-- BlockNote
-- Zustand
-- Vercel
+- **Frontend:** Next.js 15 (App Router), React 19, TypeScript
+- **UI Components:** Radix UI, Tailwind CSS, Shadcn/ui
+- **Editor:** BlockNote
+- **State Management:** Zustand
+- **Authentication:** JWT with bcrypt password hashing
+- **Database:** Turso/libsql (SQLite-compatible)
+- **Deployment:** Netlify / Cloudflare Pages
 
-## Starting the project
+## Quick Start
 
-Open the [.env.example](/.env.example) and fill in your Convex configuration, Edgestore configuration & Clerk Auth Configurations then save it as .env.local the run the following command:
-
+### 1. Clone and Install Dependencies
 ```bash
+git clone https://github.com/detutag/Noteon.git
+cd Noteon
 npm install
-npm run dev
-npx convex dev
 ```
 
-## Demo
+### 2. Environment Variables
+Copy `.env.example` to `.env.local` and configure:
 
-The app is hosted on Vercel. [Click here](https://motion.salimi.my) to visit.
-<br>
-Direct link: `https://motion.salimi.my`
+```bash
+cp .env.example .env.local
+```
 
-## Screenshots
+Required variables:
+- `JWT_SECRET` - Generate with: `openssl rand -base64 32`
+- `JWT_EXPIRES_IN` - Token expiration (default: 7d)
+- `TURSO_DATABASE_URL` - Your Turso/libsql connection string
+- `TURSO_AUTH_TOKEN` - Your Turso auth token
 
-#### Landing page
+### 3. Set Up Turso Database
+1. Install Turso CLI: `npm install -g @libsql/turso`
+2. Create database: `turso db create noteon`
+3. Get connection URL: `turso db show noteon --url`
+4. Add to `.env.local`
 
-![Landing page](/screenshots/screenshot-1.png)
+### 4. Run Development Server
+```bash
+npm run dev
+# Open http://localhost:3000
+```
 
-#### Sign in
+## Authentication
 
-![Sign in](/screenshots/screenshot-2.png)
+This app uses local user authentication with:
+- Password hashing with bcrypt (12 rounds)
+- JWT tokens stored in HTTP-only cookies
+- Automatic token validation on protected routes
 
-#### Editor
+To create a user, visit `/sign-up` and register with your email and password.
 
-![Editor](/screenshots/screenshot-3.png)
+## Deployment
+
+### Netlify
+1. Push to GitHub
+2. Import project in Netlify
+3. Set environment variables
+4. Deploy
+
+Build command: `npm run build`  
+Publish directory: `.next`
+
+### Cloudflare Pages
+1. Install Wrangler: `npm install -g wrangler`
+2. Login: `wrangler login`
+3. Deploy: `wrangler pages deploy .next --project-name=noteon`
+
+Environment variables are set in the Cloudflare dashboard.
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for security details and recommendations.
+
+## License
+
+MIT © [detutag](https://github.com/detutag)
