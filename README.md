@@ -26,7 +26,7 @@ A modern, self-hosted Notion-like note-taking application built with Next.js 15,
 
 ### 1. Clone and Install Dependencies
 ```bash
-git clone https://github.com/detutag/Noteon.git
+# Clone from GitHub or download the repository
 cd Noteon
 npm install
 ```
@@ -89,4 +89,4 @@ See [SECURITY.md](SECURITY.md) for security details and recommendations.
 
 ## License
 
-MIT © [detutag](https://github.com/detutag)
+MIT © detutag
